@@ -72,15 +72,20 @@ class HomeAssistantSimulator:
         self.clock = Clock(self.root)
 
         # Panou pentru termometru
-        self.temperature_panel = ttk.Frame(self.root)
-        self.temperature_panel.grid(row=0, column=0, columnspan=1, pady=10)
+        #self.temperature_panel = ttk.Frame(self.root)
+        #self.temperature_panel.grid(row=0, column=0, columnspan=1, pady=10)
 
         # Etichetă pentru temperatura
-        self.temperature_label = ttk.Label(self.temperature_panel, text="Temperatura: ")
-        self.temperature_label.grid(row=0, column=0, pady=5)
-
-        # Variabilă pentru a ține evidența temperaturii
         self.temperature = 20
+        self.temperature_label = ttk.Label(self.root, text="Temperatura: ")
+        #self.temperature_label = ttk.Label(self.temperature_panel, text="Temperatura: ")
+        self.temperature_label.grid(row=0, column=0, pady=5)
+        self.temperature += random.uniform(-0.5, 0.5)  # Simulare variație temperatură
+        self.temperature_label["text"] = f"Temperatura: {self.temperature:.1f} °C"
+        #self.temperature_bar["value"] = self.temperature
+        self.root.after(5000, self.display_current_temperature)  # Actualizare temperatură la fiecare 5 secunde
+        # Variabilă pentru a ține evidența temperaturii
+
 
 
 
