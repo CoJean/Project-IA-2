@@ -17,6 +17,23 @@ class Clock:
         self.time_label.config(text=current_time)
         self.master.after(1000, self.update_time)
 
+class TemperatureDisplay:
+    def __init__(self, master):
+        self.master = master
+        self.temperature_label = ttk.Label(self.master, text="Temperatura: ", font=("Helvetica", 14))
+        self.temperature_label.grid(row=0, column=0, pady=5)
+
+        self.update_button = ttk.Button(self.master, text="Actualizează", command=self.update_temperature)
+        self.update_button.grid(row=1, column=0, pady=5)
+
+        self.temperature = 20
+        self.update_temperature()
+
+    def update_temperature(self):
+        self.temperature += random.uniform(-0.5, 0.5)
+        self.temperature_label["text"] = f"Temperatura: {self.temperature:.2f} °C"
+        self.master.after(5000, self.update_temperature)
+
 
 class HomeAssistantSimulator:
     def __init__(self, root):
@@ -71,22 +88,10 @@ class HomeAssistantSimulator:
         # Create clock instance
         self.clock = Clock(self.root)
 
-        # Panou pentru termometru
-        #self.temperature_panel = ttk.Frame(self.root)
-        #self.temperature_panel.grid(row=0, column=0, columnspan=1, pady=10)
-
-        # Etichetă pentru temperatura
-        self.temperature = 20
-        self.temperature_label = ttk.Label(self.root, text="Temperatura: ")
-        #self.temperature_label = ttk.Label(self.temperature_panel, text="Temperatura: ")
-        self.temperature_label.grid(row=0, column=0, pady=5)
-        self.temperature += random.uniform(-0.5, 0.5)  # Simulare variație temperatură
-        self.temperature_label["text"] = f"Temperatura: {self.temperature:.1f} °C"
-        #self.temperature_bar["value"] = self.temperature
-        self.root.after(5000, self.display_current_temperature)  # Actualizare temperatură la fiecare 5 secunde
-        # Variabilă pentru a ține evidența temperaturii
-
-
+        # Instanțierea și plasarea obiectului TemperatureDisplay
+        self.temperature_display = TemperatureDisplay(self.root)
+        self.temperature_display.temperature_label.grid(row=0, column=0, pady=5)
+        # self.temperature_display.update_button.grid(row=0, column=0, pady=5)
 
 
     def arm_away(self):
@@ -183,12 +188,6 @@ class HomeAssistantSimulator:
         # Invert the lights status for the room
         self.lights_status[room] = not self.lights_status[room]
         self.log_message(f"Starea luminilor în {room}: {'Pornită' if self.lights_status[room] else 'Oprită'}")
-
-    def display_current_temperature(self):
-        self.temperature += random.uniform(-0.5, 0.5)  # Simulare variație temperatură
-        self.temperature_label["text"] = f"Temperatura: {self.temperature:.1f} °C"
-        self.temperature_bar["value"] = self.temperature
-        self.root.after(5000, self.display_current_temperature)  # Actualizare temperatură la fiecare 5 secunde
 
     def log_message(self, message):
         self.message_text.insert(tk.END, message + "\n")
