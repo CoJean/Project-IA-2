@@ -23,9 +23,6 @@ class TemperatureDisplay:
         self.temperature_label = ttk.Label(self.master, text="Temperatura: ", font=("Helvetica", 14))
         self.temperature_label.grid(row=0, column=0, pady=5)
 
-        self.update_button = ttk.Button(self.master, text="Actualizează", command=self.update_temperature)
-        self.update_button.grid(row=1, column=0, pady=5)
-
         self.temperature = 20
         self.update_temperature()
 
@@ -91,7 +88,7 @@ class HomeAssistantSimulator:
         # Instanțierea și plasarea obiectului TemperatureDisplay
         self.temperature_display = TemperatureDisplay(self.root)
         self.temperature_display.temperature_label.grid(row=0, column=0, pady=5)
-        # self.temperature_display.update_button.grid(row=0, column=0, pady=5)
+
 
 
     def arm_away(self):
