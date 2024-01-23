@@ -9,7 +9,12 @@ class Clock:
     def __init__(self, master):
         self.master = master
         self.time_label = tk.Label(master, font=("Arial", 20), text="")
-        self.time_label.grid(row=0, column=1, columnspan=2, pady=10, padx=10, sticky="e")
+        self.time_label.grid(row=0,
+                             column=1,
+                             columnspan=2,
+                             pady=10,
+                             padx=10,
+                             sticky="e")
         self.update_time()
 
     def update_time(self):
@@ -21,7 +26,9 @@ class TemperatureDisplay:
     def __init__(self, master):
         self.master = master
         self.temperature_label = ttk.Label(self.master, text="Temperatura: ", font=("Helvetica", 14))
-        self.temperature_label.grid(row=0, column=0, pady=5)
+        self.temperature_label.grid(row=0,
+                                    column=0,
+                                    pady=5)
 
         self.temperature = 20
         self.update_temperature()
@@ -42,32 +49,50 @@ class HomeAssistantSimulator:
 
         #  afișarea stării alarmei
         self.status_panel = ttk.Label(self.root, text="Status: Disarmed", font=("Helvetica", 16))
-        self.status_panel.grid(row=0, column=0, columnspan=3, pady=10)
+        self.status_panel.grid(row=0,
+                               column=0,
+                               columnspan=3,
+                               pady=10)
 
         # Buton armare în mod "away"
         self.arm_away_button = ttk.Button(self.root, text="Arm Away", command=self.arm_away)
-        self.arm_away_button.grid(row=1, column=0, pady=10)
+        self.arm_away_button.grid(row=1,
+                                  column=0,
+                                  pady=10)
 
 
         # Buton armare în mod "home"
         self.arm_home_button = ttk.Button(self.root, text="Arm Home", command=self.arm_home)
-        self.arm_home_button.grid(row=1, column=1, pady=5)
+        self.arm_home_button.grid(row=1,
+                                  column=1,
+                                  pady=5)
 
         # Buton dezarmare
         self.disarm_button = ttk.Button(self.root, text="Disarm", command=self.disarm)
-        self.disarm_button.grid(row=1, column=2, pady=5)
+        self.disarm_button.grid(row=1,
+                                column=2,
+                                pady=5)
 
         # Buton deschiderea paginii cu lumini
         self.lumini_button = ttk.Button(self.root, text="Lumini", command=self.open_lumini_page)
-        self.lumini_button.grid(row=2, column=0, columnspan=1, pady=5)
+        self.lumini_button.grid(row=2,
+                                column=0,
+                                columnspan=1,
+                                pady=5)
 
         # Buton Aspirator
         self.aspirator_button = ttk.Button(self.root, text="Aspirator", command=self.open_aspirator_page)
-        self.aspirator_button.grid(row=2, column=1, pady=5)
+        self.aspirator_button.grid(row=2,
+                                   column=1,
+                                   pady=5)
 
         # Caseta de text pentru mesaje
         self.message_text = tk.Text(self.root, height=50, width=170)
-        self.message_text.grid(row=3, column=0, columnspan=3, pady=10)
+        self.message_text.grid(row=3,
+                               column=0,
+                               columnspan=3,
+                               pady=10)
+
 
         # Variabile pentru a ține evidența stării aspiratorului
         self.aspirator_running = False
@@ -87,8 +112,9 @@ class HomeAssistantSimulator:
 
         # Instanțierea și plasarea obiectului TemperatureDisplay
         self.temperature_display = TemperatureDisplay(self.root)
-        self.temperature_display.temperature_label.grid(row=0, column=0, pady=5)
-
+        self.temperature_display.temperature_label.grid(row=0,
+                                                        column=0,
+                                                        pady=5)
 
 
     def arm_away(self):
@@ -109,30 +135,42 @@ class HomeAssistantSimulator:
 
         # Adaugă butoane pentru controlul luminilor în diverse camere
         lumina_camera1_button = ttk.Button(lumini_window, text="Bucatarie", command=lambda: self.control_lights("Bucatarie"))
-        lumina_camera1_button.grid(row=0, column=0, pady=5)
+        lumina_camera1_button.grid(row=0,
+                                   column=0,
+                                   pady=5)
         self.create_lights_status_labels(lumini_window, "Bucatarie", row=0, column=1)
 
         lumina_camera2_button = ttk.Button(lumini_window, text="Dormitor", command=lambda: self.control_lights("Dormitor"))
-        lumina_camera2_button.grid(row=1, column=0, pady=5)
+        lumina_camera2_button.grid(row=1,
+                                   column=0,
+                                   pady=5)
         self.create_lights_status_labels(lumini_window, "Dormitor", row=1, column=1)
 
         lumina_camera3_button = ttk.Button(lumini_window, text="Living", command=lambda: self.control_lights("Living"))
-        lumina_camera3_button.grid(row=2, column=0, pady=5)
+        lumina_camera3_button.grid(row=2,
+                                   column=0,
+                                   pady=5)
         self.create_lights_status_labels(lumini_window, "Living", row=2, column=1)
 
         lumina_camera4_button = ttk.Button(lumini_window, text="Baie", command=lambda: self.control_lights("Baie"))
-        lumina_camera4_button.grid(row=3, column=0, pady=5)
+        lumina_camera4_button.grid(row=3,
+                                   column=0,
+                                   pady=5)
         self.create_lights_status_labels(lumini_window, "Baie", row=3, column=1)
 
     def create_lights_status_labels(self, window, room, row, column):
         # Etichetă pentru afișarea stării luminilor într-o cameră
         label_text = f"Stare lumină: {'Pornită' if self.lights_status[room] else 'Oprită'}"
         lights_status_label = ttk.Label(window, text=label_text)
-        lights_status_label.grid(row=row, column=column, pady=5)
+        lights_status_label.grid(row=row,
+                                 column=column,
+                                 pady=5)
 
         # Buton pentru a afișa starea luminilor în cameră
         show_status_button = ttk.Button(window, text="Afișează Stare", command=lambda: self.show_lights_status(room, lights_status_label))
-        show_status_button.grid(row=row, column=column + 1, pady=5)
+        show_status_button.grid(row=row,
+                                column=column + 1,
+                                pady=5)
 
     def show_lights_status(self, room, label):
         label["text"] = f"Stare lumină: {'Pornită' if self.lights_status[room] else 'Oprită'}"
